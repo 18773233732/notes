@@ -130,5 +130,47 @@ HTTP的仓库，使常用的页面的副本可以保存在离客户端更近的�
 | mailto | Mailto URL指向的是E-mail地址。由于E-mail的行为与其他方案都有所不同（它并不指向任何可以直接访问的对象），所以mailto URL的格式与标准URL的格式也有所不同。因特网 E-mail地址的语法记录在RFC 822中。<br />基本格式：mailto:<RFC-822-addr-spec><br />示例：mailto:joe@joes-hardware.com |
 | ftp    | 文件传输协议URL可以用来从FTP服务器上下载或向其上载文件，并获取FTP服务器上的目录结构内容的列表。在Web和URL出现之前FTP就已经存在了。Web应用程序将FTP作为一种数据访问方案使用。URL语法遵循下列通用格式。<br />基本格式：ftp://<user>:<password>@<host>:<port>/<path>;<params><br />示例：ftp://anonymous:joe%40joes-hardware.com@prep.ai.mit.edu:21/pub/gnu/ |
 
-## HTTP报文
+## 第三章 HTTP报文
 
+### 报文流
+
+HTTP报文是在HTTP应用程序之间发送的数据块。这些数据块以一些文本形式的元信息（meta-information）开头，这些信息描述了报的内容及含义，后面跟着可选的数据部分。这些报文在客户端、服务器和代理之间流动。术语“流入”、“流出”、“上游”及“下游”都是用来描述报文方向的。
+
+### 报文的组成部分
+
+HTTP报文是简单的格式化数据块。每条报文都包含一条来自客户端的请求，或者一条来自服务器的响应。它们由三个部分组成：对报文
+进行描述的起始行（startline）、包含属性的首部（header）块，以及可选的、包含数据的主体（body）部分。
+
+#### 起始行和首部
+
+起始行和首部就是由行分隔的ASCII文本。每行都以一个由两个字符组成的行终止序列作为结束，其中包括一个回车符（ASCII码13）和一个换行符（ASCII码10）。这个行终止序列可以写做CRLF。需要指出的是，尽管HTTP规范中说明应该用CRLF来表示行终止，但稳健的应用程序也应该接受单个换行符作为行的终止。有些老的，或不完整的HTTP应用程序并不总是既发送回车符，又发送换行符。
+
+#### 主体
+
+实体的主体或报文的主体（或者就称为主体）是一个可选的数据块。与起始行和首部不同的是，主体中可以包含文本或二进制数据，也可以为空。
+
+#### 报文的语法
+
+- 请求报文（request message）
+
+  格式：
+
+  ```
+  <method> <request-URL> <version>
+  <headers>
+  <entity-body>
+  ```
+
+  
+
+- 响应报文（response message）
+
+  格式：
+
+  ```
+  <version> <status> <reason-phrase>
+  <headers>
+  <entity-body>
+  ```
+
+  
