@@ -72,5 +72,71 @@ Action 本质上是 JavaScript 普通对象。我们约定，action 内必须使
 
 再次强调一下 **Redux 应用只有一个单一的 store**。当需要拆分数据处理逻辑时，你应该使用 [reducer 组合](https://www.redux.org.cn/docs/basics/Reducers.html#splitting-reducers) 而不是创建多个 store。 
 
+## Connect
 
+连接 React 组件与 Redux store。
 
+`connect([mapStateToProps], [mapDispatchToProps], [mergeProps],[options])`
+
+参数说明：
+
+- `mapStateToProps(state, ownProps) : stateProps`
+
+  这个函数允许我们将 store 中的数据作为 props 绑定到组件上。
+
+  ```react
+  const mapStateToProps = (state) => {
+    return {
+      count: state.count
+    }
+  }
+  ```
+
+  1. 这个函数的第一个参数就是 Redux 的 store，我们从中摘取了 count 属性。你不必将 state 中的数据原封不动地传入组件，可以根据 state 中的数据，动态地输出组件需要的（最小）属性。
+
+  2. 函数的第二个参数 ownProps，是组件自己的 props。有的时候，ownProps 也会对其产生影响。
+
+  当 state 变化，或者 ownProps 变化的时候，mapStateToProps 都会被调用，计算出一个新的 stateProps，（在与 ownProps merge 后）更新给组件。
+
+  > 通过 `mapStateToProps` 提取数据
+  >
+  > mapStateToProps 用于从 store 中提取连接的组件所需要的部分数据。
+  >
+  > - 每次 store 状态改变时都会调用它；
+  > - 接收整个存储状态，并应返回该组件所需的数据对象。
+  >
+  > ownProps 如果组件需要来自其自己的 props 数据来从 store 中检索数据，可以使用第二个参数定义该函数。
+  >
+  > ```react
+  > // Todo.js
+  > 
+  > function mapStateToProps(state, ownProps) {
+  >   const { visibilityFilter } = state
+  >   // ownProps would look like { "id" : 123 }
+  >   const { id } = ownProps
+  >   const todo = getTodoById(state, id)
+  > 
+  >   // component receives additionally:
+  >   return { todo, visibilityFilter }
+  > }
+  > 
+  > // Later, in your application, a parent component renders:
+  > ;<ConnectedTodo id={123} />
+  > // and your component receives props.id, props.todo, and props.visibilityFilter
+  > ```
+  >
+  > 返回值：
+  >
+  > - 返回的 object 的每一个字段将会作为实际组件的 props；
+  > - 字段中的值将用于确定组件是否需要重新渲染。
+  >
+  > |                              | `(state) => stateProps`                | `(state, ownProps) => stateProps`                            |
+  > | ---------------------------- | -------------------------------------- | ------------------------------------------------------------ |
+  > | `mapStateToProps` runs when: | store `state` changes                  | store `state` changes or any field of `ownProps` is different |
+  > | component re-renders when:   | any field of `stateProps` is different | any field of `stateProps` is different or any field of `ownProps` is different |
+
+- `mapDispatchToProps(dispatch, ownPorps) : stateProps`
+
+  作为传递到连接的第二个参数，mapDispatchToProps 用于将 dispatch 分派到 store。
+
+  
