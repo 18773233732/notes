@@ -61,3 +61,128 @@ let strLength: number = (someValue as string).length;
 ```
 
 当你在 TypeScript 里使用 JSX 时，只有 `as` 语法断言是被允许的。
+
+## 变量声明
+
+`let` 和 `const` 是 JavaScript 里相对较新的变量声明方式。`let `在很多方面与 `var` 是相似的，但是可以帮助大家避免在 JavaScript 里常见一些问题。`const ` 是对 `let` 的一个增强，它能阻止对一个变量再次赋值。 
+
+### `var` 声明
+
+```typescript
+function f() {
+    var a = 1;
+
+    a = 2;
+    var b = g();
+    a = 3;
+
+    return b;
+
+    function g() {
+        return a;
+    }
+}
+
+f(); // returns 2
+```
+
+连续输出 10 个 10：
+
+```typescript
+for (var i = 0; i < 10; i++) {
+    setTimeout(function() { console.log(i); }, 100 * i);
+}
+```
+
+### `let` 声明
+
+#### 块级作用域
+
+当用 `let` 声明一个变量，它使用的是*词法作用域*或*块作用域*。不同于使用 `var` 声明的变量那样可以在包含它们的函数外访问，块作用域变量在包含它们的块或 `for` 循环之外是不能访问的。
+
+```typescript
+function f(input: boolean) {
+    let a = 100;
+
+    if (input) {
+        // Still okay to reference 'a'
+        let b = a + 1;
+        return b;
+    }
+
+    // Error: 'b' doesn't exist here
+    return b;
+}
+```
+
+拥有块级作用域的变量的另一个特点是，它们不能在被声明之前读或写。 虽然这些变量始终“存在”于它们的作用域里，但在直到声明它的代码之前的区域都属于 *暂时性死区*。它只是用来说明我们不能在 `let` 语句之前访问它们，幸运的是 TypeScript 可以告诉我们这些信息。 
+
+### `const` 声明
+
+它们与 `let` 声明相似，但是就像它的名字所表达的，它们被赋值后不能再改变。换句话说，它们拥有与 `let` 相同的作用域规则，但是不能对它们重新赋值。**引用不可变**。
+
+```typescript
+const numLivesForCat = 9;
+const kitty = {
+    name: "Aurora",
+    numLives: numLivesForCat,
+}
+
+// Error
+kitty = {
+    name: "Danielle",
+    numLives: numLivesForCat
+};
+
+// all "okay"
+kitty.name = "Rory";
+kitty.name = "Kitty";
+kitty.name = "Cat";
+kitty.numLives--;
+```
+
+### 数组解构
+
+```typescript
+let input = [1, 2];
+let [first, second] = input;
+console.log(first); // outputs 1
+console.log(second); // outputs 2
+```
+
+### 对象解构
+
+```typescript
+let o = {
+    a: "foo",
+    b: 12,
+    c: "bar"
+};
+let { a, b } = o;
+```
+
+`...`语法创建剩余变量 
+
+```typescript
+let { a, ...passthrough } = o;
+let total = passthrough.b + passthrough.c.length;
+```
+
+默认值
+
+```typescript
+function keepWholeObject(wholeObject: { a: string, b?: number }) {
+    let { a, b = 1001 } = wholeObject;
+}
+```
+
+### 展开
+
+展开操作符正与解构相反。它允许你将一个数组展开为另一个数组，或将一个对象展开为另一个对象。
+
+```typescript
+let first = [1, 2];
+let second = [3, 4];
+let bothPlus = [0, ...first, ...second, 5];
+```
+
