@@ -186,3 +186,5 @@ let second = [3, 4];
 let bothPlus = [0, ...first, ...second, 5];
 ```
 
+## 接口
+
