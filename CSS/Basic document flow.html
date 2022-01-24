@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8" />
+    <title>Basic document flow</title>
+    <style>
+      body {
+        width: 500px;
+        margin: 0 auto;
+      }
+      h1 {
+        position: absolute;
+      }
+      p {
+        background: aqua;
+        border: 3px solid blue;
+        padding: 10px;
+        margin: 10px;
+      }
+      p:nth-of-type(1) {
+        margin-top: 84.88px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Basic document flow</h1>
+    <p>
+      I am a basic block level element. My adjacent block level elements sit on
+      new lines below me.
+    </p>
+    <p>
+      By default we span 100% of the width of our parent element, and our height
+      is as tall as our child content. Our total width and height is our content
+      + padding + border width/height.
+    </p>
+  </body>
+</html>
