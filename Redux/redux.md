@@ -72,10 +72,7 @@ Action 本质上是 JavaScript 普通对象。我们约定，action 内必须使
 
 再次强调一下 **Redux 应用只有一个单一的 store**。当需要拆分数据处理逻辑时，你应该使用 [reducer 组合](https://www.redux.org.cn/docs/basics/Reducers.html#splitting-reducers) 而不是创建多个 store。 
 
-<<<<<<< HEAD
 
-
-=======
 ## Connect
 
 连接 React 组件与 Redux store。
@@ -143,5 +140,4 @@ Action 本质上是 JavaScript 普通对象。我们约定，action 内必须使
 
   作为传递到连接的第二个参数，mapDispatchToProps 用于将 dispatch 分派到 store。
 
-  
->>>>>>> d1245c099075f70315f94e721eb045f5f847a5a9
+ 
