@@ -7,3 +7,4 @@
 ## currentTarget
 
 当事件遍历DOM时，标识事件的当前目标。它总会引用事件处理程序附加到的元素，this指向currentTarget。
+
