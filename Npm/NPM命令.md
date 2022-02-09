@@ -28,3 +28,10 @@
 - 运行npm install --production或者注明NODE_ENV变量值为production时，不会自动下载模块到node_modules目录中。 
 
 evDependencies节点下的模块是我们在开发时需要用的，比如项目中使用的gulp，压缩css、js的模块。这些模块在我们的项目部署后是不需要的，所以我们可以使用-save-dev的形式安装。像express这些模块是项目运行必备的，应该安装在dependencies节点下，所以我们应该使用-save的形式安装。
+
+
+
+## set registry
+
+`npm config set registry`
+
