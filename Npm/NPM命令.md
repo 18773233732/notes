@@ -35,3 +35,5 @@ evDependencies节点下的模块是我们在开发时需要用的，比如项目
 
 `npm config set registry`
 
+https://registry.npmjs.org/
+
