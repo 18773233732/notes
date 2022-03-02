@@ -33,5 +33,3 @@ evDependencies 节点下的模块是我们在开发时需要用的，比如项�
 ## set registry
 
 `npm config set registry`
-
-> > > > > > > Stashed changes
