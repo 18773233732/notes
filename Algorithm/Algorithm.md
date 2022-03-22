@@ -29,3 +29,32 @@
 
 1. `n` 为数据的规模
 2. `f(n)` 为语句关于 `n` 所占存储空间的函数
+
+## 二分插入排序
+
+```javascript
+function DichotomySort(array) {
+	for (let i = 0; i < array.length; i++) {
+		let start = 0,
+			end = i - 1,
+			mid = 0;
+		let temp = array[i];
+		while (start <= end) {
+			mid = Math.floor((start + end) / 2);
+			if (temp < array[mid]) {
+				end = mid - 1;
+			} else {
+				start = mid + 1;
+			}
+		}
+		for (let j = i - 1; j > end; j--) {
+			array[j + 1] = array[j];
+		}
+		array[end + 1] = temp;
+	}
+	return array;
+}
+
+let array = [1, 3, 2, 5, 4, 7, 6];
+console.log(DichotomySort(array));
+```
