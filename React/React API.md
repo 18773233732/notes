@@ -1,4 +1,4 @@
-# 顶层API
+# 顶层 API
 
 ## React.memo
 
@@ -56,8 +56,8 @@ export default React.memo(MyComponent, areEqual);
 function logProps(WrappedComponent) {
   class LogProps extends React.Component {
     componentDidUpdate(prevProps) {
-      console.log('old props:', prevProps);
-      console.log('new props:', this.props);
+      console.log("old props:", prevProps);
+      console.log("new props:", this.props);
     }
 
     render() {
@@ -90,7 +90,7 @@ export default logProps(FancyButton);
 这意味着用于我们 `FancyButton` 组件的 refs 实际上将被挂载到 `LogProps` 组件：
 
 ```javascript
-import FancyButton from './FancyButton';
+import FancyButton from "./FancyButton";
 
 const ref = React.createRef();
 
@@ -98,11 +98,7 @@ const ref = React.createRef();
 // 尽管渲染结果将是一样的，
 // 但我们的 ref 将指向 LogProps 而不是内部的 FancyButton 组件！
 // 这意味着我们不能调用例如 ref.current.focus() 这样的方法
-<FancyButton
-  label="Click Me"
-  handleClick={handleClick}
-  ref={ref}
-/>;
+<FancyButton label="Click Me" handleClick={handleClick} ref={ref} />;
 ```
 
 幸运的是，我们可以使用 `React.forwardRef` API 明确地将 refs 转发到内部的 `FancyButton` 组件。`React.forwardRef` 接受一个渲染函数，其接收 `props` 和 `ref` 参数并返回一个 React 节点。例如：
@@ -111,12 +107,12 @@ const ref = React.createRef();
 function logProps(Component) {
   class LogProps extends React.Component {
     componentDidUpdate(prevProps) {
-      console.log('old props:', prevProps);
-      console.log('new props:', this.props);
+      console.log("old props:", prevProps);
+      console.log("new props:", this.props);
     }
 
     render() {
-      const {forwardedRef, ...rest} = this.props;
+      const { forwardedRef, ...rest } = this.props;
 
       // 将自定义的 prop 属性 “forwardedRef” 定义为 ref
       return <Component ref={forwardedRef} {...rest} />;
@@ -132,3 +128,23 @@ function logProps(Component) {
 }
 ```
 
+## useImperativeHandle
+
+```javascript
+useImperativeHandle(ref, createHandle, [deps]);
+```
+
+`useImperativeHandle` 可以让你在使用 `ref` 时自定义暴露给父组件的实例值。在大多数情况下，应当避免使用 `ref` 这样的命令式代码。`useImperativeHandle` 应当与 `forwardRef` 一起使用：
+
+```javascript
+function FancyInput(props, ref) {
+  const inputRef = useRef();
+  useImperativeHandle(ref, () => ({
+    focus: () => {
+      inputRef.current.focus();
+    }
+  }));
+  return <input ref={inputRef} ... />;
+}
+FancyInput = forwardRef(FancyInput);
+```

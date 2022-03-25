@@ -40,7 +40,7 @@ render(
 
 ## 导航（Navigation）
 
-使用`Link`组件或者`useNavgate`钩子来改变URL。
+使用`Link`组件或者`useNavgate`钩子来改变 URL。
 
 ```react
 import { Link } from "react-router-dom";
@@ -78,7 +78,7 @@ function Invoices() {
 }
 ```
 
-## 读取URL参数（Reading URL Parameters）
+## 读取 URL 参数（Reading URL Parameters）
 
 在路由路径中使用语法`:style`或者`useParams()`获得
 
@@ -118,7 +118,7 @@ function Invoice() {
 
 ## 嵌套路由
 
-这是React Router最强大的功能之一，因此您不必处理复杂的布局代码。绝大多数布局都与URL的片段耦合，而React Router完全接受了这一点。路由可以相互嵌套，它们的路径也会嵌套（子继承父）。
+这是 React Router 最强大的功能之一，因此您不必处理复杂的布局代码。绝大多数布局都与 URL 的片段耦合，而 React Router 完全接受了这一点。路由可以相互嵌套，它们的路径也会嵌套（子继承父）。
 
 ```react
 function App() {
@@ -139,7 +139,7 @@ function App() {
 - `"/invoices/sent"`
 - `"/invoices/:invoiceId"`
 
-当URL是`"/invoices/sent"`组件树时：
+当 URL 是`"/invoices/sent"`组件树时：
 
 ```react
 <App>
@@ -149,7 +149,7 @@ function App() {
 </App>
 ```
 
-当URL为时"/invoices/123"，组件树将：
+当 URL 为时"/invoices/123"，组件树将：
 
 ```react
 <App>
@@ -161,7 +161,7 @@ function App() {
 
 ## 默认路由
 
-可以在路由层次结构的任何级别拥有一个默认路由，当父级匹配但其他子级都不匹配时，该默认路由将呈现。 
+可以在路由层次结构的任何级别拥有一个默认路由，当父级匹配但其他子级都不匹配时，该默认路由将呈现。
 
 ```react
 function App() {
@@ -179,7 +179,7 @@ function App() {
 
 ## 相对路由
 
-相对`<Linkto>`值（不以a开头/）是相对于渲染它们的路径的路径。下面的两个链接将链接到/dashboard/invoices和/dashboard/team因为它们在`<Dashboard>`。当更改父级的URL或重新排列组件时，这非常好，因为所有链接都会自动更新。
+相对`<Link to>`值（不以 a 开头/）是相对于渲染它们的路径的路径。下面的两个链接将链接到/dashboard/invoices 和/dashboard/team 因为它们在`<Dashboard>`。当更改父级的 URL 或重新排列组件时，这非常好，因为所有链接都会自动更新。
 
 ```react
 import {
@@ -230,7 +230,7 @@ function App() {
 
 ## "NotFound"路由
 
-当没有其他路由与URL匹配时，可以使用path="*"。此路由将匹配任何URL，但具有最弱的优先级，因此路由器仅在没有其他路由匹配时才会选择它。
+当没有其他路由与 URL 匹配时，可以使用 path="\*"。此路由将匹配任何 URL，但具有最弱的优先级，因此路由器仅在没有其他路由匹配时才会选择它。
 
 ```react
 function App() {
@@ -244,9 +244,9 @@ function App() {
 }
 ```
 
-## 子Routes
+## 子 Routes
 
-可以在`<Routes>`任何需要的地方渲染元素，包括在另一个的组件树深处`<Routes>`。这些将与任何其他一样工作`<Routes>`，除了它们将自动构建在呈现它们的路线的路径上。如果您这样做，请确保在父路由路径的末尾放置一个*。否则，当URL长于父路由的路径时，父路由将与URL不匹配，并且您的后代`<Routes>`将永远不会出现。
+可以在`<Routes>`任何需要的地方渲染元素，包括在另一个的组件树深处`<Routes>`。这些将与任何其他一样工作`<Routes>`，除了它们将自动构建在呈现它们的路线的路径上。如果您这样做，请确保在父路由路径的末尾放置一个\*。否则，当 URL 长于父路由的路径时，父路由将与 URL 不匹配，并且您的后代`<Routes>`将永远不会出现。
 
 ```react
 function App() {
@@ -270,4 +270,3 @@ function Dashboard() {
   );
 }
 ```
-
